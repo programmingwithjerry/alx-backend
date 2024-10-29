@@ -34,23 +34,12 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-    
+        """Retrieves a specified page of data from the dataset.
         """
-        Retrieves a specified page of data from the dataset.
-        """
-        # Validate that page and page_size are positive integers.
-        assert isinstance(page, int) and isinstance(page_size, int),
-        assert page > 0 and page_size > 0, "Page and page_size must be positive values."
-
-        # Calculate the start and end indices for the specified page.
+        assert type(page) == int and type(page_size) == int
+        assert page > 0 and page_size > 0
         start_idx, end_idx = index_range(page, page_size)
-
-        # Retrieve the complete dataset.
         full_data = self.dataset()
-
-        # If start index exceeds the dataset size, return an empty list (page out of range).
-        if start_idx >= len(full_data):
+        if start_idx > len(full_data):
             return []
-
-        # Return the subset of data between the calculated start and end indices.
         return full_data[start_idx:end_idx]
