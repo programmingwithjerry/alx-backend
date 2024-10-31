@@ -8,19 +8,22 @@ from base_caching import BaseCaching
 
 
 class LFUCache(BaseCaching):
-    """A cache that implements a Least Frequently Used (LFU) eviction strategy.
-    When the cache exceeds its limit, it removes the item with the lowest access frequency.
+    """A cache that implements a Least Frequently Used (LFU)
+       eviction strategy. When the cache exceeds its limit,
+       it removes the item with the lowest access frequency.
     """
 
     def __init__(self):
-        """Sets up the cache with an ordered dictionary to store items and a frequency list.
+        """Sets up the cache with an ordered dictionary to
+           store items and a frequency list.
         """
         super().__init__()
         self.cache_data = OrderedDict()
         self.keys_freq = []
 
     def __reorder_items(self, mru_key):
-        """Reorganizes items in the cache based on frequency, promoting the most recently used item.
+        """Reorganizes items in the cache based on frequency,
+           promoting the most recently used item.
         """
         max_positions = []
         mru_freq = 0
@@ -29,7 +32,7 @@ class LFUCache(BaseCaching):
 
         for i, key_freq in enumerate(self.keys_freq):
             if key_freq[0] == mru_key:
-                mru_freq = key_freq[1] + 1  # Increment the frequency for the accessed item
+                mru_freq = key_freq[1] + 1
                 mru_pos = i
                 break
             elif len(max_positions) == 0:
@@ -47,14 +50,15 @@ class LFUCache(BaseCaching):
         self.keys_freq.insert(ins_pos, [mru_key, mru_freq])
 
     def put(self, key, item):
-        """Adds an item to the cache. If the cache is full, evicts the least frequently used item.
+        """Adds an item to the cache. If the cache is full,
+           evicts the least frequently used item.
         """
         if key is None or item is None:
             return
 
         if key not in self.cache_data:
             if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                lfu_key, _ = self.keys_freq[-1]  # Identify and remove the least frequently used item
+                lfu_key, _ = self.keys_freq[-1]
                 self.cache_data.pop(lfu_key)
                 self.keys_freq.pop()
                 print("DISCARD:", lfu_key)
@@ -62,7 +66,7 @@ class LFUCache(BaseCaching):
             self.cache_data[key] = item
             ins_index = len(self.keys_freq)
             for i, key_freq in enumerate(self.keys_freq):
-                if key_freq[1] == 0:  # Position the new item based on frequency
+                if key_freq[1] == 0: #Position the new item based on frequency
                     ins_index = i
                     break
             self.keys_freq.insert(ins_index, [key, 0])
@@ -75,4 +79,4 @@ class LFUCache(BaseCaching):
         """
         if key is not None and key in self.cache_data:
             self.__reorder_items(key)
-        return self.cache_data.get(key, None)
+        return (self.cache_data.get(key, None))
