@@ -37,4 +37,4 @@ class LIFOCache(BaseCaching):
         """Returns the item associated with the
            specified key, if available.
         """
-        return self.cache_data.get(key, None)
+        return (self.cache_data.get(key, None))
