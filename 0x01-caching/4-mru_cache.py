@@ -9,7 +9,8 @@ from base_caching import BaseCaching
 
 class MRUCache(BaseCaching):
     """A cache implementing a Most Recently Used (MRU) eviction policy.
-    When the cache reaches its limit, the most recently accessed item is removed first.
+      When the cache reaches its limit, the most recently accessed item
+      is removed first.
     """
 
     def __init__(self):
@@ -19,21 +20,23 @@ class MRUCache(BaseCaching):
         self.cache_data = OrderedDict()
 
     def put(self, key, item):
-        """Stores an item in the cache. Evicts the most recently used item if the cache limit is exceeded.
+        """Stores an item in the cache. Evicts the most recently
+           used item if the cache limit is exceeded.
         """
         if key is None or item is None:
             return
         if key not in self.cache_data:
             if len(self.cache_data) + 1 > BaseCaching.MAX_ITEMS:
-                mru_key, _ = self.cache_data.popitem(False)  # Remove the most recently used item
+                mru_key, _ = self.cache_data.popitem(False)
                 print("DISCARD:", mru_key)
             self.cache_data[key] = item
-            self.cache_data.move_to_end(key, last=False)  # Place new item at the beginning
+            self.cache_data.move_to_end(key, last=False)
         else:
             self.cache_data[key] = item
 
     def get(self, key):
-        """Fetches the item associated with the key and marks it as most recently used.
+        """Fetches the item associated with the key and marks it
+           as most recently used.
         """
         if key is not None and key in self.cache_data:
             self.cache_data.move_to_end(key, last=False)  # Update access order
