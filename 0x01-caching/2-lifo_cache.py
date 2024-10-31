@@ -33,6 +33,7 @@ class LIFOCache(BaseCaching):
         self.cache_data[key] = item
         # Ensure the new item is last in order
         self.cache_data.move_to_end(key, last=True)
+
     def get(self, key):
         """Returns the item associated with the
            specified key, if available.
