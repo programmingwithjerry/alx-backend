@@ -66,7 +66,7 @@ class LFUCache(BaseCaching):
             self.cache_data[key] = item
             ins_index = len(self.keys_freq)
             for i, key_freq in enumerate(self.keys_freq):
-                if key_freq[1] == 0: #Position the new item based on frequency
+                if key_freq[1] == 0:
                     ins_index = i
                     break
             self.keys_freq.insert(ins_index, [key, 0])
