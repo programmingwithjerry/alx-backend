@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def index():
-    """Renders the index page with a welcome message."""
+    """Renders the index page with 'Hello wrld' """
     return render_template('0-index.html')
 
 #if __name__ == "__main__":
