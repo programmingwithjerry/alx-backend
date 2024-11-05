@@ -5,6 +5,7 @@ Basic Flask app that renders a simple greeting page.
 
 from flask import Flask, render_template
 
+
 app = Flask(__name__)
 
 
