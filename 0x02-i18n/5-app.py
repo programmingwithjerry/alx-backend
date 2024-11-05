@@ -4,7 +4,6 @@
 Basic Flask application setup.
 """
 
-
 from flask import Flask, render_template, request, g
 from flask_babel import Babel
 
@@ -25,6 +24,7 @@ class Config:
 
 # Apply the configuration settings to the app
 app.config.from_object(Config)
+
 
 # Sample user data with information on name, locale, and timezone
 users = {
